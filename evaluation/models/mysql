@@ -1,0 +1,144 @@
+//建表语句
+//基础信息表
+CREATE TABLE IF NOT EXISTS `mydb`.`PersonBaseData` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '简历基础信息表',
+  `identify` VARCHAR(32) NULL COMMENT '唯一标识',
+  `unit` VARCHAR(128) NULL COMMENT '应聘单位',
+  `series` VARCHAR(256) NULL COMMENT '申报系列',
+  `post` VARCHAR(128) NULL COMMENT '申报岗位',
+  `post_number` INT NULL COMMENT '岗位编号',
+  `now_title` VARCHAR(64) NULL COMMENT '现有职称',
+  `apply_title` VARCHAR(64) NULL COMMENT '申报职称',
+  `source_title` VARCHAR(128) NULL COMMENT '来源和职称',
+  `person_type` VARCHAR(45) NULL COMMENT '人员类型',
+  `review_status` VARCHAR(45) NULL COMMENT '审核状态',
+  `patent_situation` JSON NULL COMMENT '专利情况',
+  `hnonr_situation` JSON NULL COMMENT '奖励情况',
+  `copyright_situation` JSON NULL COMMENT '著作情况',
+  `working_assumption` JSON NULL COMMENT '工作设想',
+  `first_person_thesis` JSON NULL COMMENT '第一人称发布的论文',
+  `lead_project` JSON NULL COMMENT '主持项目',
+  `Resume_file` BLOB NULL COMMENT '简历文件',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `identify_UNIQUE` (`identify` ASC) VISIBLE,
+  CONSTRAINT `job_id`
+    FOREIGN KEY ()
+    REFERENCES `mydb`.`Recruitment` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+
+
+//岗位表
+CREATE TABLE IF NOT EXISTS `mydb`.`Recruitment` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `nubmber` INT NULL COMMENT '岗位编号',
+  `require_persion` INT NULL COMMENT '招聘人数',
+  `require_edu` VARCHAR(45) NULL COMMENT '学历要求',
+  `require_age` INT NULL COMMENT '年龄要求',
+  `job_grade` VARCHAR(45) NULL COMMENT '岗位级别',
+  `applicant_first_level` VARCHAR(45) NULL COMMENT '应聘者一级学科',
+  `job_level` VARCHAR(45) NULL COMMENT '岗位学科方向',
+  `qualification` JSON NULL COMMENT '任职条件',
+  `other_requirement` JSON NULL COMMENT '岗位其他要求',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB
+
+//工作经历
+CREATE TABLE IF NOT EXISTS `mydb`.`WorkExperience` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `work_unit` VARCHAR(128) NULL DEFAULT '工作单位',
+  `work_time` VARCHAR(128) NULL DEFAULT '起止时间',
+  `research_direction` VARCHAR(256) NULL DEFAULT '研究方向',
+  `technical_title` VARCHAR(128) NULL DEFAULT '职称职务',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `person_id`
+    FOREIGN KEY ()
+    REFERENCES `mydb`.`PersonBaseData` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+
+//教育经历
+CREATE TABLE IF NOT EXISTS `mydb`.`Education` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL DEFAULT '学校名称',
+  `background` VARCHAR(45) NULL DEFAULT '学校阶段',
+  `number` VARCHAR(45) NULL DEFAULT '学校排名',
+  `category` VARCHAR(45) NULL DEFAULT '学校类别',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  CONSTRAINT `person_id`
+    FOREIGN KEY ()
+    REFERENCES `mydb`.`PersonBaseData` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+
+//教学情况
+CREATE TABLE IF NOT EXISTS `mydb`.`TeachSituation` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `teach_class` JSON NULL,
+  `teach_student` JSON NULL,
+  `teach_result` JSON NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  CONSTRAINT `person_id`
+    FOREIGN KEY ()
+    REFERENCES `mydb`.`PersonBaseData` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+
+//论文信息
+CREATE TABLE IF NOT EXISTS `mydb`.`Dissertation` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL DEFAULT '论文名称',
+  `DOI` VARCHAR(45) NULL DEFAULT 'DOI号',
+  `Journal_title` VARCHAR(256) NULL DEFAULT '期刊名',
+  `publish_time` VARCHAR(128) NULL DEFAULT '发表时间',
+  `number` INT NULL DEFAULT 排名,
+  `result` VARCHAR(45) NULL DEFAULT '成果简称',
+  `original_show` VARCHAR(512) NULL DEFAULT '原创性说明',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  CONSTRAINT `person_id`
+    FOREIGN KEY ()
+    REFERENCES `mydb`.`PersonBaseData` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+
+//项目情况
+CREATE TABLE IF NOT EXISTS `mydb`.`Project` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL DEFAULT '项目名称',
+  `source` VARCHAR(45) NULL DEFAULT '项目来源',
+  `number` VARCHAR(45) NULL DEFAULT '排名/总人数',
+  `amount_money` VARCHAR(45) NULL DEFAULT '到款金额/总金额',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  CONSTRAINT `person_id`
+    FOREIGN KEY ()
+    REFERENCES `mydb`.`PersonBaseData` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+
+
+// 评价结果
+CREATE TABLE IF NOT EXISTS `mydb`.`evaluation_result` (
+  `id` INT NOT NULL,
+  `result` VARCHAR(45) NULL COMMENT '简历评价结果-优秀，良好',
+  `match` VARCHAR(45) NULL COMMENT '岗位匹配度',
+  `score_detail` JSON NULL COMMENT '具体得分详情',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `person_id`
+    FOREIGN KEY ()
+    REFERENCES `mydb`.`PersonBaseData` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
