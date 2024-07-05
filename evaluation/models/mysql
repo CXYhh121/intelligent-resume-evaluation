@@ -2,33 +2,31 @@
 //基础信息表
 CREATE TABLE IF NOT EXISTS `mydb`.`PersonBaseData` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '简历基础信息表',
-  `identify` VARCHAR(32) NULL COMMENT '唯一标识',
   `unit` VARCHAR(128) NULL COMMENT '应聘单位',
   `series` VARCHAR(256) NULL COMMENT '申报系列',
-  `post` VARCHAR(128) NULL COMMENT '申报岗位',
-  `post_number` INT NULL COMMENT '岗位编号',
+  `post_job` VARCHAR(128) NULL COMMENT '申报岗位',
+  `job_number` INT NULL COMMENT '岗位编号',
   `now_title` VARCHAR(64) NULL COMMENT '现有职称',
   `apply_title` VARCHAR(64) NULL COMMENT '申报职称',
   `source_title` VARCHAR(128) NULL COMMENT '来源和职称',
   `person_type` VARCHAR(45) NULL COMMENT '人员类型',
   `review_status` VARCHAR(45) NULL COMMENT '审核状态',
   `patent_situation` JSON NULL COMMENT '专利情况',
-  `hnonr_situation` JSON NULL COMMENT '奖励情况',
+  `honor_situation` JSON NULL COMMENT '奖励情况',
   `copyright_situation` JSON NULL COMMENT '著作情况',
   `working_assumption` JSON NULL COMMENT '工作设想',
   `first_person_thesis` JSON NULL COMMENT '第一人称发布的论文',
   `lead_project` JSON NULL COMMENT '主持项目',
-  `Resume_file` BLOB NULL COMMENT '简历文件',
+  `create_time` DATETIME NULL COMMENT '创建时间',
+  `update_time` DATETIME NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  UNIQUE INDEX `identify_UNIQUE` (`identify` ASC) VISIBLE,
   CONSTRAINT `job_id`
     FOREIGN KEY ()
     REFERENCES `mydb`.`Recruitment` ()
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-
 
 //岗位表
 CREATE TABLE IF NOT EXISTS `mydb`.`Recruitment` (
