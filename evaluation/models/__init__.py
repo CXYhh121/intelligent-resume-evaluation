@@ -37,3 +37,21 @@ def sqlalchemy_context(app):
             return result
         return do_job
     return add_context
+
+
+def shutdown_session(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        result, msg = func(*args, **kwargs)
+        db.session.close()
+        return result, msg
+    return wrapper
+
+
+def shutdown_session_single(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        db.session.close()
+        return result
+    return wrapper

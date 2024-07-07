@@ -35,7 +35,7 @@ app.config['CAS_AFTER_LOGIN'] = '/'
 app.config['CAS_VALIDATE_ROUTE'] = '/cas/p3/serviceValidate'
 
 
-app.register_blueprint(resume, url_prefix='/resume')
+app.register_blueprint(resume)
 
 @app.route("/health")
 def health_check():
