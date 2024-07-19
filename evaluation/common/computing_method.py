@@ -1,7 +1,7 @@
 # encoding: utf-8
 """
 @author: chenxiyue
-@contact: chenxiyue@kuaishou.com
+@contact: chenxiyue@126.com
 @software: PyCharm
 @file: computing_method.py
 @time: 2024/7/19 17:23

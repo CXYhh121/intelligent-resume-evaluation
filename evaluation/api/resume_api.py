@@ -1,7 +1,7 @@
 # encoding: utf-8
 """
 @author: chenxiyue
-@contact: chenxiyue@kuaishou.com
+@contact: chenxiyue@126.com
 @software: PyCharm
 @file: resume_api.py
 @time: 2024/7/4 19:32

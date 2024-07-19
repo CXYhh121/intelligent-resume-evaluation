@@ -1,7 +1,7 @@
 # encoding: utf-8
 """
 @author: chenxiyue
-@contact: chenxiyue@kuaishou.com
+@contact: chenxiyue@126.com
 @software: PyCharm
 @file: app.py
 @time: 2024/7/2 15:36
@@ -28,11 +28,6 @@ db.init_app(app)
 
 
 log_init()
-
-cas = CAS(app, '/cas')
-app.config['CAS_SERVER'] = 'https://sso.corp.kuaishou.com'
-app.config['CAS_AFTER_LOGIN'] = '/'
-app.config['CAS_VALIDATE_ROUTE'] = '/cas/p3/serviceValidate'
 
 
 app.register_blueprint(resume)
