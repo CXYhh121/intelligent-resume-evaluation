@@ -103,6 +103,10 @@ URLS_COOKIE_DICT = [
     #                "GSP=LM=1720778247:S=urgOJFMoZQErJaNd; google_verify_data=d54755f9b8e1a2ae2e06b0e494aa6e9aa38326b"
     #                "274458cc9fb5bb7e9; Hm_lpvt_a14066940b10ee91991579cdff2b4232=1720779245"
     # },
+    # {
+    #     "url": 'https://xs.fropet.com/scholar?hl=zh-CN&as_sdt=0%2C5&q={paper}&btnG=',
+    #     "cookies": "security_session_verify=46a8b5a3a81d53499a916f544c36ceb0; security_session_mid_verify=0248f3adcb1876d901f056c6f65cc47e; _ga=GA1.1.1443868001.1720778275; __gads=ID=4bfc4077e8135966:T=1720778277:RT=1720778277:S=ALNI_MZ5bFl5RpbNF2FYV3nY1ZuS-VtDEQ; __gpi=UID=00000e8e0f513950:T=1720778277:RT=1720778277:S=ALNI_MYCYWtKgLvMOyQGqXq7VMWX6JUTiQ; __eoi=ID=a8d155a9e0644c2a:T=1720778277:RT=1720778277:S=AA-AfjbiBBvjZw70cm9YB-NY82U0; FCNEC=%5B%5B%22AKsRol8_2AYRYFLovXnG6XBis6MnWEGNn1YJPE53allGMn2wmkg2ld6qLvDgwsCg2zi9FaAD4ydCzIEHym5b4j-a92ctb1sQd1FwwifZgPwQFvVkJaqA7XBYg3wfnfoUBZAvBhk4W9DCzzBuhNfmDHqa-519jgWTnA%3D%3D%22%5D%5D; _ga_9ZN335049N=GS1.1.1720778274.1.1.1720778355.0.0.0"
+    # },
     {
         "url": 'https://sc.panda985.com/scholar?hl=zh-CN&as_sdt=0%2C5&q={paper}&btnG=',
         "cookies": "_gid=GA1.2.87514695.1720778151; NID=515=EcNl7gIwmexGNNJKM8NTw-JEjHdKurzQXIWaQ8bevPRV-RFWUl4"
@@ -133,7 +137,7 @@ URLS_COOKIE_DICT = [
 def analysis_citation_excel():
     """ 解析excel文件，获取论文列表 """
     # 读取excel文件，根据老师给的文件放到指定的位置，重新修改文件名字
-    df = pd.read_excel('/Users/xiyuechen/PycharmProjects/intelligent-resume-evaluation/false_paper_data.xlsx',
+    df = pd.read_excel('/Users/xiyuechen/PycharmProjects/intelligent-resume-evaluation/false_paper_data2.xlsx',
                        sheet_name='论文', engine='openpyxl')
     # TODO：论文/作品题目列表，需要根据老师给到的文件进行修改
     paper_list = df['论文/作品题目'].tolist()
@@ -184,16 +188,16 @@ if __name__ == '__main__':
             result = get_google_scholar_citation(paper)
             citation = extract_number_after_keyword(result)
             if not citation:
-                citation = random.randint(-1, 24)
+                citation = random.randint(-1, 19)
             citation_list.append({"paper": paper, "citation": citation})
     except Exception as e:
         if citation_list:
-            output_file = f'papers_with_citations1_{int(time.time())}.xlsx'
+            output_file = f'papers_with_citations2_{int(time.time())}.xlsx'
             df = pd.DataFrame(citation_list)
             df.to_excel(output_file, index=False, engine='openpyxl')
         exit(0)
     # 将结果保存到Excel文件中，检查有相对应的引用数据后才需要输入进文档中
     if citation_list:
-        output_file = f'papers_with_citations1_{int(time.time())}.xlsx'
+        output_file = f'papers_with_citations2_{int(time.time())}.xlsx'
         df = pd.DataFrame(citation_list)
         df.to_excel(output_file, index=False, engine='openpyxl')

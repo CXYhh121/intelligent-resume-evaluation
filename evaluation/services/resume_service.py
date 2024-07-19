@@ -6,10 +6,16 @@
 @file: resume_service.py
 @time: 2024/7/5 17:40
 """
+import datetime
 import io
 import logging
+import pandas as pd
 
 from pdfplumber import open as pdf_open
+
+from infer_model.inference import ModelInference
+
+from evaluation.common.computing_method import *
 
 
 def analyzing_resume(pdf_file):
@@ -37,29 +43,50 @@ def parse_pdf_to_key_value(pdf_file):
     return data
 
 
-# 示例使用
-# 假设 resume_file 是一个包含PDF文件的 FileStorage 对象
-# parsed_data = parse_pdf_to_key_value(resume_file)
-# print(parsed_data)
-# def analyzing_resume(resume_file):
-# 	""" 解析简历信息 """
-# 	# 使用上下文管理器读取文件到内存
-# 	with io.BytesIO(resume_file.read()) as bio:
-# 		# 使用PdfReader代替PdfFileReader
-# 		pdf = PdfReader(bio)
-#
-# 		# 初始化文本列表
-# 		text_parts = []
-# 		for page in pdf.pages:
-# 			# 使用extract_text()方法获取文本
-# 			text_parts.append(page.extract_text())
-#
-# 		# 连接文本部分
-# 		text = '\n'.join(filter(None, text_parts))
-# 		return text
-
-
-def evaluation_score_service(resume_id: int):
+def evaluation_score_excel_service(excel_file_path: str):
     """ 查询数据库中存储的简历信息，构造结构体传数据给模型获取评分 """
-    # TODO：查询简历信息
-    
+    df = pd.read_excel(excel_file_path, sheet_name='简历量化结果', engine='openpyxl')
+    source_resume_json_list = df.to_dict('records')
+    evaluation_result = []
+    for resume_json in source_resume_json_list:
+        result_json = evaluation_score_execute(resume_json)
+        evaluation_result.append(result_json)
+    return evaluation_result
+
+
+def evaluation_score_json_service(resume_json):
+    """ 传入json数据，获取评分 """
+    result_json = evaluation_score_execute(resume_json)
+    return result_json
+
+
+def evaluation_score_execute(resume_json: dict):
+    result_json = dict()
+    # 调用模型获取简历评分
+    model = ModelInference(r'/Users/xiyuechen/PycharmProjects/intelligent-resume-evaluation/infer_model/model/xgb_model.pkl')
+    result_score = model.predict(resume_json)
+    result_json['resume_match_score'] = result_score[0] if result_score else 0
+    for key, value in resume_json.items():
+        if key in methods_dict:
+            result_json[key+"_score"] = methods_dict[key](value)
+        # else:
+        #     result_json[key] = value
+    result_json["Q1_Q2_score"] = evaluation_Q1_Q2(resume_json['qOneCount'], resume_json['qTwoCount'])
+    return result_json
+
+
+def convert_to_age(birth_date_str):
+    # 将字符串转换为日期格式
+    birth_date = datetime.strptime(birth_date_str, "%Y%m%d").date()
+    # 获取今天的日期
+    today = datetime.now().date()
+    # 计算年龄
+    age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+
+    return age
+
+
+if __name__ == '__main__':
+    resume_json = {"aPaperCount":0,"academy":"4b2ecfc3dde05ba727d9a703f623e0de","averageIF":2.199999968210856,"averageRef":37,"bachelorUniversity":"fe52bfe14500ed32b94eac5e3c73e555","bachelorUniversityLevel":0,"birthmonth":"19900801","code":"B82727C0AA204E65A9C3981615D742D8","countOfCCFA":0,"doctorAfterProjectCount":0,"doctorAfterProjectFund":0,"doctorUniversity":"fd7fa6cd275f73b8d26b12467e9b2716","doctorUniversityLevel":4,"gender":"1","highestIF":3.299999952316284,"highestProjectFund":0,"highestRef":54,"lowestIF":0,"lowestRef":0,"masterUniversity":"fe52bfe14500ed32b94eac5e3c73e555","masterUniversityLevel":0,"nationalProjectCount":0,"nationalProjectTotalFund":0,"paperCount":3,"patentCount":0,"position":"3874a0aa04a727b40b9d2e63b447047a","projectCount":3,"projectFund":0,"qOneAverageRank":0,"qOneCount":0,"qOneHighestRank":0,"qOneLowestRank":58,"qTwoCount":0,"series":"f244de573c766e13515dd5dd52875b79","whetherPass":0}
+    result = evaluation_score_execute(resume_json)
+    print(result)

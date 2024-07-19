@@ -3,7 +3,7 @@
 @author: chenxiyue
 @contact: chenxiyue@kuaishou.com
 @software: PyCharm
-@file: DbHandler.py
+@file: db_handler.py
 @time: 2024/7/5 20:04
 """
 import logging

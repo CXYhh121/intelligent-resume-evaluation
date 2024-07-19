@@ -11,6 +11,15 @@ import datetime
 from evaluation.models.dbs import mysql as db
 
 
+class ResumeIndexDataInfo(db.Model):
+    __tablename__ = 'ResumeIndexDataInfo'
+    id = db.Column(db.BigInteger(), nullable=False, primary_key=True)
+    index_name = db.Column(db.String(64), nullable=False, comment='指标名称')
+    index_upper_limit = db.Column(db.Float(), nullable=False, comment='指标上限值')
+    index_lower_limit = db.Column(db.Float(), nullable=False, comment='指标下限值')
+
+
+
 class Recruitment(db.Model):
     __tablename__ = 'Recruitment'
     id = db.Column(db.BigInteger(), nullable=False, primary_key=True)
