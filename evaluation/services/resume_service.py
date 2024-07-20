@@ -93,11 +93,11 @@ def evaluation_comprehensive_score(result_json):
     doctorUniversityLevel_score = result_json.get('doctorUniversityLevel_score', 0)
     patentCount_score = result_json.get('patentCount_score', 0)
     
-    return (birthmonth_score * 0.1 +
-            bachelorUniversityLevel_score * 0.1 +
-            masterUniversityLevel_score * 0.1 +
-            doctorUniversityLevel_score * 0.1 +
-            patentCount_score * 0.1)
+    return (birthmonth_score * 0.2 +
+            bachelorUniversityLevel_score * 0.2 +
+            masterUniversityLevel_score * 0.2 +
+            doctorUniversityLevel_score * 0.2 +
+            patentCount_score * 0.2)
     
 
 def evaluation_project_score(result_json: dict):
