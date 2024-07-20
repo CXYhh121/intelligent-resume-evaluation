@@ -1,9 +1,12 @@
-2024-07-05 19:35:37,135 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
-2024-07-05 19:36:19,266 _internal.py _log [line:122] INFO 127.0.0.1 - - [05/Jul/2024 19:36:19] "[33mPOST /api/resume/upload HTTP/1.1[0m" 404 -
-2024-07-05 19:36:32,025 _internal.py _log [line:122] INFO 127.0.0.1 - - [05/Jul/2024 19:36:32] "[33mPOST /api/resume/upload HTTP/1.1[0m" 404 -
-2024-07-05 19:37:17,038 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
-2024-07-05 19:37:42,059 _internal.py _log [line:122] INFO 127.0.0.1 - - [05/Jul/2024 19:37:42] "[1m[35mPOST /api/resume/upload HTTP/1.1[0m" 500 -
-2024-07-05 19:40:41,977 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
-2024-07-05 19:48:23,444 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
-2024-07-05 19:53:26,173 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
-2024-07-05 19:53:37,927 _internal.py _log [line:122] INFO 127.0.0.1 - - [05/Jul/2024 19:53:37] "[1m[35mPOST /api/resume/upload HTTP/1.1[0m" 500 -
+2024-07-20 15:32:19,984 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
+2024-07-20 15:38:43,604 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
+2024-07-20 15:43:45,519 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
+2024-07-20 15:44:03,681 _internal.py _log [line:122] INFO 127.0.0.1 - - [20/Jul/2024 15:44:03] "[1m[35mPOST /api/resume/evaluation/score/json HTTP/1.1[0m" 500 -
+2024-07-20 15:47:49,437 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
+2024-07-20 15:48:15,722 _internal.py _log [line:122] INFO 127.0.0.1 - - [20/Jul/2024 15:48:15] "[1m[35mPOST /api/resume/evaluation/score/json HTTP/1.1[0m" 500 -
+2024-07-20 15:48:56,124 _internal.py _log [line:122] INFO 127.0.0.1 - - [20/Jul/2024 15:48:56] "[37mPOST /api/resume/evaluation/score/json HTTP/1.1[0m" 200 -
+2024-07-20 15:59:58,667 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
+2024-07-20 16:00:22,773 resume_api.py get_score [line:58] ERROR 请传入简历数据
+2024-07-20 16:00:22,963 _internal.py _log [line:122] INFO 127.0.0.1 - - [20/Jul/2024 16:00:22] "[37mPOST /api/resume/evaluation/score/json HTTP/1.1[0m" 200 -
+2024-07-20 16:26:12,356 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
+2024-07-20 16:26:22,154 _internal.py _log [line:122] INFO 127.0.0.1 - - [20/Jul/2024 16:26:22] "[37mPOST /api/resume/evaluation/score/json HTTP/1.1[0m" 200 -

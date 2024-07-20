@@ -1,0 +1,9 @@
+2024-07-05 19:35:37,135 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
+2024-07-05 19:36:19,266 _internal.py _log [line:122] INFO 127.0.0.1 - - [05/Jul/2024 19:36:19] "[33mPOST /api/resume/upload HTTP/1.1[0m" 404 -
+2024-07-05 19:36:32,025 _internal.py _log [line:122] INFO 127.0.0.1 - - [05/Jul/2024 19:36:32] "[33mPOST /api/resume/upload HTTP/1.1[0m" 404 -
+2024-07-05 19:37:17,038 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
+2024-07-05 19:37:42,059 _internal.py _log [line:122] INFO 127.0.0.1 - - [05/Jul/2024 19:37:42] "[1m[35mPOST /api/resume/upload HTTP/1.1[0m" 500 -
+2024-07-05 19:40:41,977 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
+2024-07-05 19:48:23,444 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
+2024-07-05 19:53:26,173 _internal.py _log [line:122] INFO  * Running on http://0.0.0.0:6666/ (Press CTRL+C to quit)
+2024-07-05 19:53:37,927 _internal.py _log [line:122] INFO 127.0.0.1 - - [05/Jul/2024 19:53:37] "[1m[35mPOST /api/resume/upload HTTP/1.1[0m" 500 -

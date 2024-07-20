@@ -67,12 +67,60 @@ def evaluation_score_execute(resume_json: dict):
     result_score = model.predict(resume_json)
     result_json['resume_match_score'] = result_score[0] if result_score else 0
     for key, value in resume_json.items():
+        if value is None:
+            value = 0
         if key in methods_dict:
             result_json[key+"_score"] = methods_dict[key](value)
         # else:
         #     result_json[key] = value
     result_json["Q1_Q2_score"] = evaluation_Q1_Q2(resume_json['qOneCount'], resume_json['qTwoCount'])
+    result_json['comprehensive_score'] = evaluation_comprehensive_score(resume_json)
+    result_json['project_comprehensive_score'] = evaluation_project_score(resume_json)
+    result_json['paper_comprehensive_score'] = evaluation_paper_score(resume_json.get('paper_num', 0),
+                                                                      resume_json.get('highestIF', 0),
+                                                                      resume_json.get('high_citation_paper_num', 0),
+                                                                      resume_json.get('qOneCount', 0),
+                                                                      resume_json.get('qTwoCount', 0),
+                                                                      resume_json.get('aPaperCount', 0))
     return result_json
+
+
+def evaluation_comprehensive_score(result_json):
+    """ 个人综合得分 """
+    birthmonth_score = result_json.get('birthmont_score', 0)
+    bachelorUniversityLevel_score = result_json.get('bachelorUniversityLevel_score', 0)
+    masterUniversityLevel_score = result_json.get('masterUniversityLevel_score', 0)
+    doctorUniversityLevel_score = result_json.get('doctorUniversityLevel_score', 0)
+    patentCount_score = result_json.get('patentCount_score', 0)
+    
+    return (birthmonth_score * 0.1 +
+            bachelorUniversityLevel_score * 0.1 +
+            masterUniversityLevel_score * 0.1 +
+            doctorUniversityLevel_score * 0.1 +
+            patentCount_score * 0.1)
+    
+
+def evaluation_project_score(result_json: dict):
+    projectCount_score = result_json.get('projectCount_score', 0)
+    projectFund_score = result_json.get('projectFund_score', 0)
+    highestProjectFund_score = result_json.get('highestProjectFund_score', 0)
+    nationalProjectCount_score = result_json.get('nationalProjectCount_score', 0)
+    nationalProjectTotalFund_score = result_json.get('nationalProjectTotalFund_score', 0)
+    # postdocProjectCount_score = result_json['postdocProjectCount_score']
+    # postdocProjectTotalFund_score = result_json['postdocProjectTotalFund_score']
+    return (projectCount_score * 0.3 +
+            projectFund_score * 0.2 +
+            highestProjectFund_score * 0.2 +
+            nationalProjectCount_score * 0.15 +
+            nationalProjectTotalFund_score * 0.15)
+
+
+def evaluation_paper_score(paper_num, paper_IF, high_citation_paper_num, Q1, Q2, A_paper_num):
+    return (evaluation_paper_number(paper_num) * 0.15 +
+            evaluation_paper_IF(paper_IF) * 0.15 +
+            evaluation_high_citation_paper_number(high_citation_paper_num) * 0.2 +
+            evaluation_Q1_Q2(Q1, Q2) * 0.2 +
+            evaluation_A_paper_number(A_paper_num) * 0.3)
 
 
 def convert_to_age(birth_date_str):

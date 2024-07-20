@@ -53,10 +53,10 @@ def evaluation_score_excel():
 @resume.route('/evaluation/score/json', methods=['POST'])
 def get_score():
     """ 给简历评分接口 """
-    resume_id = request.form.get('resume_id', None)
-    if not resume_id:
-        logger.error("请传入简历id")
-        return build_response(1, error_msg="请传入简历id")
+    resume_json = request.get_json()
+    if not resume_json:
+        logger.error("请传入简历数据")
+        return build_response(1, error_msg="请传入简历数据")
     # 通过输入的简历id查询数据库中对应的数据信息，并调用模型计算分数
-    result = evaluation_score_json_service(resume_id)
+    result = evaluation_score_json_service(resume_json)
     return build_response(0, data=result)
