@@ -6,9 +6,53 @@
 @file: model.py
 @time: 2024/7/2 15:53
 """
-import datetime
+from datetime import datetime
 
 from evaluation.models.dbs import mysql as db
+
+
+class ResumeProfile(db.Model):
+    __tablename__ = 'resume_profile'
+    
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    code = db.Column(db.String(64), nullable=False, comment='编号')
+    whetherPass = db.Column(db.String(1), default='0', comment='是否通过')
+    series = db.Column(db.String(64), comment='系列')
+    position = db.Column(db.String(64), comment='申报岗位')
+    academy = db.Column(db.String(64), comment='应聘单位')
+    gender = db.Column(db.SmallInteger, default=0, comment='性别')
+    birthmonth = db.Column(db.String(32), comment='出生年月')
+    bachelorUniversity = db.Column(db.String(64), comment='本科学校')
+    bachelorUniversityLevel = db.Column(db.Integer, default=0, comment='硕士学校级别')
+    masterUniversity = db.Column(db.String(64), comment='硕士学校')
+    masterUniversityLevel = db.Column(db.Integer, default=0, comment='硕士学校类别')
+    doctorUniversity = db.Column(db.String(64), comment='博士学校')
+    doctorUniversityLevel = db.Column(db.Integer, default=0, comment='博士学校级别')
+    projectCount = db.Column(db.Integer, default=0, comment='项目数')
+    nationalProjectCount = db.Column(db.Integer, default=0, comment='国家级项目数')
+    projectFund = db.Column(db.Numeric(10, 2), default=0.00, comment='项目经费')
+    highestProjectFund = db.Column(db.Numeric(10, 2), default=0.00, comment='最高项目经费')
+    nationalProjectTotalFund = db.Column(db.Numeric(10, 2), default=0.00, comment='国家级项目总经费')
+    doctorAfterProjectFund = db.Column(db.Numeric(10, 2), default=0.00, comment='博士后项目经费')
+    doctorAfterProjectCount = db.Column(db.Integer, default=0, comment='博士后项目')
+    highestIF = db.Column(db.Numeric(10, 6), default=0.000000, comment='最高IF')
+    lowestIF = db.Column(db.Numeric(10, 6), default=0.000000, comment='最低IF')
+    averageIF = db.Column(db.Numeric(10, 6), default=0.000000, comment='平均IF')
+    qOneCount = db.Column(db.Integer, default=0, comment='Q1区数')
+    qOneHighestRank = db.Column(db.Integer, default=0, comment='Q1区最高排名')
+    qOneLowestRank = db.Column(db.Integer, default=0, comment='Q1最低排名')
+    qOneAverageRank = db.Column(db.Numeric(10, 6), default=0.000000, comment='Q1平均排名')
+    qTwoCount = db.Column(db.Integer, default=0, comment='Q2区数量')
+    paperCount = db.Column(db.Integer, default=0, comment='论文数')
+    countOfCCFA = db.Column(db.Integer, default=0, comment='CCFA数')
+    highestRef = db.Column(db.Integer, default=0, comment='最高引用')
+    averageRef = db.Column(db.Integer, default=0, comment='平均引用')
+    lowestRef = db.Column(db.Integer, default=0, comment='最低引用')
+    aPaperCount = db.Column(db.Integer, default=0, comment='A类目录')
+    patentCount = db.Column(db.Integer, default=0, comment='专利数')
+    
+    def to_dict(self):
+        return {c.name: getattr(self, c.name, None) for c in self.__table__.columns}
 
 
 class ResumeIndexDataInfo(db.Model):

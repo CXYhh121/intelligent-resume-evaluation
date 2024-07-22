@@ -11,7 +11,8 @@ import logging
 from flask_sqlalchemy import BaseQuery
 
 from evaluation.models import app, sqlalchemy_context
-from evaluation.models.model import PersonBaseData
+from evaluation.models.model import PersonBaseData, ResumeProfile
+from evaluation.models.dbs import mysql as db
 
 TimeFormat = 'YYYY-MM-DD HH:mm:ss'
 
@@ -64,5 +65,29 @@ class DbHandler(BaseQuery):
         :param resume_id: 简历id
         :return: 查询结果, dict类型
         """
+
+    @staticmethod
+    @sqlalchemy_context(app)
+    def insert_resume_data(resume_list: list):
+        """
+        初始化简历数据
+        :param resume_list: 简历列表
+        :return: 初始化结果
+        """
+        # 将简历列表转换为ResumeProfile实例列表
+        #profiles = [ResumeProfile(**resume) for resume in resume_list]
+        # 将ResumeProfile实例列表插入到数据库中
+        db.session.execute(ResumeProfile.__table__.insert(), resume_list)
+        db.session.commit()
+        return True
+    
+    @staticmethod
+    @sqlalchemy_context(app)
+    def get_resume_detail(page, per_page):
+        offset = (page - 1) * per_page
+        result = db.session.query(ResumeProfile).order_by(ResumeProfile.id.asc()).offset(offset).limit(per_page).all()
+        if result:
+            return [resume.to_dict() for resume in result]
+        return []
         
         

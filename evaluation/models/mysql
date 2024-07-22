@@ -1,4 +1,42 @@
 //建表语句
+CREATE TABLE IF NOT EXISTS resume_profile (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    projectCount INT DEFAULT 0,
+    code VARCHAR(64) NOT NULL,
+    gender TINYINT DEFAULT 0,
+    qOneHighestRank INT DEFAULT 0,
+    highestIF DECIMAL(10, 6) DEFAULT 0.0,
+    qOneCount INT DEFAULT 0,
+    highestProjectFund DECIMAL(10, 2) DEFAULT 0.0,
+    nationalProjectTotalFund DECIMAL(10, 2) DEFAULT 0.0,
+    projectFund DECIMAL(10, 2) DEFAULT 0.0,
+    countOfCCFA INT DEFAULT 0,
+    birthmonth DATE,
+    masterUniversity VARCHAR(64),
+    academy VARCHAR(64),
+    bachelorUniversity VARCHAR(64),
+    masterUniversityLevel INT DEFAULT 0,
+    qTwoCount INT DEFAULT 0,
+    doctorAfterProjectCount INT DEFAULT 0,
+    bachelorUniversityLevel INT DEFAULT 0,
+    qOneAverageRank DECIMAL(10, 6) DEFAULT 0.0,
+    doctorAfterProjectFund DECIMAL(10, 2) DEFAULT 0.0,
+    highestRef INT DEFAULT 0,
+    lowestIF DECIMAL(10, 6) DEFAULT 0.0,
+    averageIF DECIMAL(10, 6) DEFAULT 0.0,
+    averageRef INT DEFAULT 0,
+    aPaperCount INT DEFAULT 0,
+    lowestRef INT DEFAULT 0,
+    qOneLowestRank INT DEFAULT 0,
+    series VARCHAR(64),
+    doctorUniversityLevel INT DEFAULT 0,
+    paperCount INT DEFAULT 0,
+    doctorUniversity VARCHAR(64),
+    position VARCHAR(64),
+    whetherPass CHAR(1) DEFAULT '0',
+    nationalProjectCount INT DEFAULT 0
+);
+
 //基础信息表
 CREATE TABLE IF NOT EXISTS `mydb`.`PersonBaseData` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '简历基础信息表',

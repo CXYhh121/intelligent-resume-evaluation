@@ -9,10 +9,14 @@
 import datetime
 import io
 import logging
+import math
+
+import numpy as np
 import pandas as pd
 
 from pdfplumber import open as pdf_open
 
+from evaluation.models.db_handler import DbHandler
 from infer_model.inference import ModelInference
 
 from evaluation.common.computing_method import *
@@ -133,6 +137,21 @@ def convert_to_age(birth_date_str):
 
     return age
 
+
+def init_resume_data_to_mysql(resume_json_list: list):
+    """初始化简历数据"""
+    for resume_json in resume_json_list:
+        for i, value in enumerate(resume_json):
+            if isinstance(value, float) and np.isnan(value):  # 检查是否为NaN
+                resume_json[i] = None
+    DbHandler.insert_resume_data(resume_json_list)
+    return True
+
+
+def get_resume_detail_service(page, per_page):
+    resume_detail_list = DbHandler.get_resume_detail(page, per_page)
+    return resume_detail_list
+    
 
 if __name__ == '__main__':
     resume_json = {"aPaperCount":0,"academy":"4b2ecfc3dde05ba727d9a703f623e0de","averageIF":2.199999968210856,"averageRef":37,"bachelorUniversity":"fe52bfe14500ed32b94eac5e3c73e555","bachelorUniversityLevel":0,"birthmonth":"19900801","code":"B82727C0AA204E65A9C3981615D742D8","countOfCCFA":0,"doctorAfterProjectCount":0,"doctorAfterProjectFund":0,"doctorUniversity":"fd7fa6cd275f73b8d26b12467e9b2716","doctorUniversityLevel":4,"gender":"1","highestIF":3.299999952316284,"highestProjectFund":0,"highestRef":54,"lowestIF":0,"lowestRef":0,"masterUniversity":"fe52bfe14500ed32b94eac5e3c73e555","masterUniversityLevel":0,"nationalProjectCount":0,"nationalProjectTotalFund":0,"paperCount":3,"patentCount":0,"position":"3874a0aa04a727b40b9d2e63b447047a","projectCount":3,"projectFund":0,"qOneAverageRank":0,"qOneCount":0,"qOneHighestRank":0,"qOneLowestRank":58,"qTwoCount":0,"series":"f244de573c766e13515dd5dd52875b79","whetherPass":0}
