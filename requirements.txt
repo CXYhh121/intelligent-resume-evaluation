@@ -41,8 +41,6 @@ grpcio-tools==1.24.3
 hiredis==1.0.0
 idna==2.8
 importlib-metadata==1.6.1
-infra-component==0.8.9
-infra-framework==1.12.14
 ipython-genutils==0.2.0
 itsdangerous==1.1.0
 jedi==0.15.1

@@ -23,3 +23,4 @@ class DevConfig(Config):
 class ProdConfig(Config):
     DEBUG = False
     SQLALCHEMY_ECHO = False
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:XfWvEv2!@10.2.8.3:3306/mysql?charset=utf8"

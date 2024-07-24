@@ -23,7 +23,7 @@ class ResumeProfile(db.Model):
     gender = db.Column(db.SmallInteger, default=0, comment='性别')
     birthmonth = db.Column(db.String(32), comment='出生年月')
     bachelorUniversity = db.Column(db.String(64), comment='本科学校')
-    bachelorUniversityLevel = db.Column(db.Integer, default=0, comment='硕士学校级别')
+    bachelorUniversityLevel = db.Column(db.Integer, default=0, comment='本科学校级别')
     masterUniversity = db.Column(db.String(64), comment='硕士学校')
     masterUniversityLevel = db.Column(db.Integer, default=0, comment='硕士学校类别')
     doctorUniversity = db.Column(db.String(64), comment='博士学校')
